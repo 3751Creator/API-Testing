@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
  */
 public class ActionFrame extends JFrame implements ActionListener{
 
+	Check check = new Check();
+
 	@Override
 	public void actionPerformed(ActionEvent e){
 		Object src = e.getSource();
@@ -25,12 +27,13 @@ public class ActionFrame extends JFrame implements ActionListener{
 			}
 		}
 		if(src == Frame.Button_Redefinir){
-			Check check = new Check();
+
 			check.ModFile();
 		}
 		if(src == Frame.Button_MAJ){
-			Download.preDownload();
-		}
+			Thread t1 = new Thread(new Download());
 
+			t1.start();
+		}
 	}
 }

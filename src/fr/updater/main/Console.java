@@ -21,17 +21,17 @@ public class Console {
 
 	private static StyledDocument Text = null;
 
-	private static void ConsoleError(){
-		if(Text == null){
-			System.err.println("[Console API] No Name set for the JTextPane\n[Console API] Please do Console.setName(JTextPane);");
-		}
-	}
-
 	/**
 	 * @param Name Gets the name of the JTextPane to be able to use the Console features.
 	 */
 	public static void setName(JTextPane Name){
 		Text = Name.getStyledDocument();
+	}
+
+	private static void ConsoleError(){
+		if(Text == null){
+			//System.err.println("[Console API] No Name set for the JTextPane\n[Console API] Please do Console.setName(JTextPane);");
+		}
 	}
 
 	private static SimpleAttributeSet Colors = new SimpleAttributeSet();
@@ -108,7 +108,4 @@ public class Console {
 			Text.insertString(0, "[" + level + "] " + Message + "\n", Colors);
 		}catch(Exception e) { ConsoleError(); }
 	}
-
-
-
 }

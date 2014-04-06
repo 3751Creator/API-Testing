@@ -34,7 +34,6 @@ public class Frame extends FrameComponent {
 
 	private void TextPane(){
 		addTextPane(TextPane_List, 5, 5+Button_MAJ.getHeight()+5+Button_Redefinir.getHeight()+5, 415, 325, ScrollPane_List);
-		Console.setName(TextPane_List);
 		TextPane_List.setEditable(false);
 	}
 
@@ -43,7 +42,7 @@ public class Frame extends FrameComponent {
 	}
 
 	private void ProgressBar(){
-		addProgressBar(ProgressBar_Download, 0, 408, 424, 0, "Pourcentage de téléchargement", 0, 0, 100);
+		addProgressBar(ProgressBar_Download, 0, 408, 424, 0, "Pourcentage de téléchargement", 0, 0);
 	}
 
 	private void init(){
@@ -63,5 +62,7 @@ public class Frame extends FrameComponent {
 		setIconImage(img);
 
 		init();
+
+		Console.setName(Frame.TextPane_List);
 	}
 }

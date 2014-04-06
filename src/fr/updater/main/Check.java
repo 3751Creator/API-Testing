@@ -20,6 +20,7 @@ import java.util.Scanner;
 /**
  * User: Alexandre
  */
+@SuppressWarnings({"UnnecessaryContinue", "ResultOfMethodCallIgnored", "ForLoopReplaceableByForEach"})
 public class Check extends JFrame implements Info {
 
 	private void preCheck(){
@@ -72,7 +73,6 @@ public class Check extends JFrame implements Info {
 	}
 
 	public void ModFile(){
-
 		JFileChooser FileChooser_FichierMods = new JFileChooser();
 
 		FileChooser_FichierMods.setDialogTitle("Sélectionnez le fichier minecraft souhaité.");
@@ -109,8 +109,6 @@ public class Check extends JFrame implements Info {
 	}
 
 	private Scanner Scanner_VersionLocal, Scanner_FichierMods;
-	private int Int_VersionLocal = 0;
-	private String Load, String_FichierMods;
 	public static String[] Content;
 
 	public Check(){
@@ -127,20 +125,18 @@ public class Check extends JFrame implements Info {
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
 		}
-		Int_VersionLocal = Scanner_VersionLocal.nextInt();
+		int int_VersionLocal = Scanner_VersionLocal.nextInt();
 
 		try{
 			Scanner_FichierMods = new Scanner(File_FichierMods);
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
 		}
-		String_FichierMods = Scanner_FichierMods.nextLine();
-		System.out.println(String_FichierMods);
-
+		String string_FichierMods = Scanner_FichierMods.nextLine();
 
 		DocumentBuilderFactory builderfactory = DocumentBuilderFactory.newInstance();
 
-		DocumentBuilder dBuilder = null;
+		DocumentBuilder dBuilder;
 		try{
 			dBuilder = builderfactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(File_Update);
@@ -152,25 +148,26 @@ public class Check extends JFrame implements Info {
 			Element rootVersion = (Element) NodeUpdate;
 			NodeList NodeVersion = rootVersion.getElementsByTagName("version");
 
-			Node theNote = NodeVersion.item(0);
-			Element noteElement = (Element) theNote;
-			if(Int_VersionLocal < NodeVersion.getLength()){
-				for(int i = Int_VersionLocal; i < NodeVersion.getLength(); i++){
+			Node theNote;
+			Element noteElement;
+
+			if(int_VersionLocal < NodeVersion.getLength()){
+				for(int i = int_VersionLocal; i < NodeVersion.getLength(); i++){
 					theNote = NodeVersion.item(i);
 					noteElement = (Element) theNote;
 					Node thecontent = noteElement.getElementsByTagName("Mod").item(0);
 					Element contentElement = (Element) thecontent;
 
-					Load = contentElement.getTextContent();
-					Content = Load.split(" ");
+					String load = contentElement.getTextContent();
+					Content = load.split(" ");
 					Console.add(Level.CLASSIC, ((Element)theNote).getAttribute("id"));
 					for(int ii = 0; ii < Content.length; ii++){
 						String[] String_ModSplit = Content[ii].split("\\.");
 						/**
 						 * Creats link to mod file with a .zip and .jar to make sure the exist or not.
 						 */
-						File Stirng_ModZip = new File(String_FichierMods + "\\mods\\" + String_ModSplit[0] + ".zip");
-						File Stirng_ModJar = new File(String_FichierMods + "\\mods\\" + String_ModSplit[0] + ".jar");
+						File Stirng_ModZip = new File(string_FichierMods+ "\\mods\\" + String_ModSplit[0] + ".zip");
+						File Stirng_ModJar = new File(string_FichierMods+ "\\mods\\" + String_ModSplit[0] + ".jar");
 
 						if(String_ModSplit[0].equals("config")){
 							Console.add(Level.CONFIG, Content[ii]);
@@ -181,7 +178,6 @@ public class Check extends JFrame implements Info {
 							continue;
 						}if(Stirng_ModZip.exists() || Stirng_ModJar.exists()){
 							Console.add(Level.MAJ, Content[ii]);
-							//TODO faire en sorte qu'il détect lequel il faut suprimer.
 							continue;
 						}else{
 							Console.add(Level.AJOUT, Content[ii]);

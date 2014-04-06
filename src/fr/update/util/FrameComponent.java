@@ -6,6 +6,7 @@ import java.awt.*;
 /**
  * User: Alexandre
  */
+@SuppressWarnings("all")    //TODO: Changer eventuellement
 public abstract class FrameComponent extends JFrame {
 
 	private ActionFrame Action = new ActionFrame();
@@ -253,7 +254,7 @@ public abstract class FrameComponent extends JFrame {
 
 	/**---------------------------------------------------------------------------------------------------------------------------------------------*/
 
-	public void addProgressBar(JProgressBar ProgressBarName, int x, int y, int width, int height, String ToolTip, int FirstValue, int Start, int End){
+	public void addProgressBar(JProgressBar ProgressBarName, int x, int y, int width, int height, String ToolTip, int FirstValue, int Start){
 
 		Dimension ProgressBarName_Size = ProgressBarName.getPreferredSize();
 		if(width == 0){
@@ -269,7 +270,7 @@ public abstract class FrameComponent extends JFrame {
 		ProgressBarName.setToolTipText(ToolTip);
 		ProgressBarName.setValue(FirstValue);
 		ProgressBarName.setMinimum(Start);
-		ProgressBarName.setMaximum(End);
+		//ProgressBarName.setMaximum(End);
 
 		add(ProgressBarName);
 	}
